@@ -1,0 +1,20 @@
+<h3>Find Series by Keyword(s)</h3>
+<!--  when you use a form tag in Angular 2, it will add a form directive to the form -->
+<!-- use a template reference variable to access the directive -->
+<form #theForm="ngForm" (submit)="search(theForm)" novalidate><!-- we want to handle validation, not browser validation-->
+  <!-- ngModel comes with ngForm, causes angular to 'watch' the input -->
+  <div class="form-group">
+    <label>Keywords</label>
+    <input type='text' class="form-control" required name="keywords"
+    [ngModel]="keywords"
+    (ngModelChange)="toLower($event)">
+  </div>
+  <button type="submit" class="btn btn-primary">Find</button>
+</form>
+<!-- <button (click)="handleCheck()">CheckItOut</button> -->
+<select *ngIf="seriess" multiple name="seriesSelect">
+  <option *ngFor="let series of seriess" (click)="handleSeriesSelect(series)">{{series.id}} -- {{series.title}}</option>
+</select>
+<div id="linechart">
+  <app-series-chart [data]='selectedSeriesObservations' [series]='selectedSeries'></app-series-chart>
+</div>
